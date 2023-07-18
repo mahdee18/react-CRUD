@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
+import Table from "./Table";
 
 const Form = () => {
     const {
@@ -10,7 +11,35 @@ const Form = () => {
         reset,
         formState: { errors },
     } = useForm();
+    const [tableData, setTableData] = useState([]);
+    const [editClick, setEditClick] = useState(false);
+    const [editIndex, setEditIndex] = useState("");
 
+    const onSubmit = (data) => {
+        if (editClick) {
+          const tempTableData = [...tableData];
+          Object.assign(tempTableData[editIndex], data);
+          setTableData(tempTableData);
+          setEditClick(false);
+          reset();
+        } else {
+          setTableData([...tableData, data]);
+          reset();
+        }
+      };
+      
+      const handleDelete = (index) => {
+        const filterData = tableData.filter((item, i) => i !== index);
+        setTableData(filterData);
+      };
+      
+
+    const handleEdit = (index) => {
+        const tempData = tableData[index];
+        setEditClick(true);
+        setEditIndex(index);
+        reset(tempData);
+    };
 
     return (
         <div className="min-h-screen bg-[#004b43]">
@@ -90,6 +119,31 @@ const Form = () => {
                         {editClick ? "Update Data" : "Add Employer"}
                     </button>
                 </form>
+            </div>
+            <div>
+                <table className="w-4/5 mx-auto mt-20 text-center">
+                    <thead className="table-header-group">
+                        <tr className="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative">
+                            <th className="bg-blue-300 p-2 text-white font-bold md:border md:border-grey-500 text-center block md:table-cell">
+                                Name
+                            </th>
+                            <th className="bg-blue-300 p-2 text-white font-bold md:border md:border-grey-500 text-center block md:table-cell">
+                                Email
+                            </th>
+                            <th className="bg-blue-300 p-2 text-white font-bold md:border md:border-grey-500 text-center block md:table-cell">
+                                Salary
+                            </th>
+                            <th className="bg-blue-300 p-2 text-white font-bold md:border md:border-grey-500 text-center block md:table-cell">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody className="block md:table-row-group">
+                        {tableData.map((item, index) => (
+                            <Table handleDelete={handleDelete} handleEdit={handleEdit} item={item} key={index}></Table>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         </div>
     );
