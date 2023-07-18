@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { LuEdit, LuTrash2 } from "react-icons/lu";
 import "sweetalert2/dist/sweetalert2.min.css";
 
 const Form = () => {
@@ -168,15 +169,17 @@ const Form = () => {
                                 <td className="p-2 md:p-4 flex justify-center gap-2 md:justify-center">
                                     <button
                                         onClick={() => handleEdit(index)}
-                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 mb-2 md:mb-0 md:mr-2"
+                                        className="bg-blue-500 hover:bg-white hover:text-blue-500 text-white font-bold py-1 px-2 border border-blue-500 mb-2 md:mb-0 md:mr-2"
                                     >
-                                        Edit
+                                        <LuEdit></LuEdit>
                                     </button>
                                     <button
                                         onClick={() => handleDelete(index)}
-                                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500"
+                                        className="text-white
+                                        bg-red-700 hover:bg-white
+                                        text-lg hover:text-red-700 font-bold py-1 px-2 border border-red-500"
                                     >
-                                        Delete
+                                        <LuTrash2></LuTrash2>
                                     </button>
                                 </td>
                             </tr>
