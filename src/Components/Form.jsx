@@ -9,6 +9,7 @@ const Form = () => {
         register,
         handleSubmit,
         reset,
+        watch,
         formState: { errors },
     } = useForm();
     const [tableData, setTableData] = useState([]);
@@ -86,13 +87,12 @@ const Form = () => {
                         <label
                             htmlFor="name"
                             className={`absolute left-2 -top-2 z-[1] px-2 text-xs transition-all ${errors.name ? "text-pink-500" : "text-slate-400"
-                                } ${register("name").value ? "-top-2" : "top-2.5"
-                                } peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-purple-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent bg-white`}
+                                } ${watch("name") ? "-top-2" : "top-2.5"} peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-purple-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent bg-white`}
                         >
                             Your name
                         </label>
                         {errors.name && (
-                            <small className="absolute flex justify-between w-full px-4 py-1 text-xs transition text-slate-700 peer-invalid:text-pink-500">
+                            <small className="absolute flex justify-between w-full px-4 py-1 text-xs transition text-red-500 peer-invalid:text-white">
                                 <span>{errors.name.message}</span>
                             </small>
                         )}
@@ -108,13 +108,13 @@ const Form = () => {
                         />
                         <label
                             htmlFor="email"
-                            className={`absolute left-2 -top-2 z-[1] px-2 text-xs text-slate-400 transition-all ${register("email").value ? "-top-2" : "top-2.5"
+                            className={`absolute left-2 -top-2 z-[1] px-2 text-xs text-slate-400 transition-all ${watch("email") ? "-top-2" : "top-2.5"
                                 } peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-purple-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent bg-white`}
                         >
                             Your email
                         </label>
                         {errors.email && (
-                            <small className="absolute flex justify-between w-full px-4 py-1 text-xs transition text-slate-700 peer-invalid:text-pink-500">
+                            <small className="absolute flex justify-between w-full px-4 py-1 text-xs transition text-red-500 peer-invalid:text-pink-500">
                                 <span>{errors.email.message}</span>
                             </small>
                         )}
@@ -130,13 +130,13 @@ const Form = () => {
                         />
                         <label
                             htmlFor="salary"
-                            className={`absolute left-2 -top-2 z-[1] px-2 text-xs text-slate-400 transition-all ${register("salary").value ? "-top-2" : "top-2.5"
+                            className={`absolute left-2 -top-2 z-[1] px-2 text-xs text-slate-400 transition-all ${watch("salary") ? "-top-2" : "top-2.5"
                                 } peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-purple-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent bg-white`}
                         >
                             Salary
                         </label>
                         {errors.salary && (
-                            <small className="absolute flex justify-between w-full px-4 py-1 text-xs transition text-slate-700 peer-invalid:text-pink-500">
+                            <small className="absolute flex justify-between w-full px-4 py-1 text-xs transition text-red-500 peer-invalid:text-pink-500">
                                 <span>{errors.salary.message}</span>
                             </small>
                         )}
@@ -146,9 +146,10 @@ const Form = () => {
                         type="submit"
                         className="btn border-0 inline-flex items-center justify-center w-full h-10 gap-2 px-5 text-sm font-medium tracking-wide text-white transition duration-300 rounded focus-visible:outline-none whitespace-nowrap bg-purple-600 disabled:cursor-not-allowed disabled:border"
                     >
-                        {editClick ? "Update Data" : "Add Employer"}
+                        {editClick ? "Update Data" : "Add An Employer"}
                     </button>
                 </form>
+
             </div>
             <div className="overflow-x-auto">
                 <table className="sm:w-full md:w-5/6 mx-auto mt-20 text-center">
@@ -165,7 +166,7 @@ const Form = () => {
                             <tr key={index} className="border-t border-gray-300 bg-gray-100">
                                 <td className="p-2 md:p-4">{item.name}</td>
                                 <td className="p-2 md:p-4">{item.email}</td>
-                                <td className="p-2 md:p-4">{item.salary}</td>
+                                <td className="p-2 md:p-4">${item.salary}</td>
                                 <td className="p-2 md:p-4 flex justify-center gap-2 md:justify-center">
                                     <button
                                         onClick={() => handleEdit(index)}
