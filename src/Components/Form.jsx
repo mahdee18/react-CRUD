@@ -5,6 +5,7 @@ import { LuEdit, LuTrash2 } from "react-icons/lu";
 import "sweetalert2/dist/sweetalert2.min.css";
 
 const Form = () => {
+    // Hook forms utility
     const {
         register,
         handleSubmit,
@@ -12,10 +13,13 @@ const Form = () => {
         watch,
         formState: { errors },
     } = useForm();
+
+    // Created useState for conditionally data rendering.  
     const [tableData, setTableData] = useState([]);
     const [editClick, setEditClick] = useState(false);
     const [editIndex, setEditIndex] = useState("");
 
+    // Form Submit functionality
     const onSubmit = (data) => {
         if (editClick) {
             const tempTableData = [...tableData];
@@ -41,6 +45,7 @@ const Form = () => {
         }
     };
 
+    //Data delete functionality
     const handleDelete = (index) => {
         Swal.fire({
             title: "Are you sure?",
@@ -63,7 +68,7 @@ const Form = () => {
             }
         });
     };
-
+    //Data edit functionality
     const handleEdit = (index) => {
         const tempData = tableData[index];
         setEditClick(true);
@@ -71,11 +76,20 @@ const Form = () => {
         reset(tempData);
     };
 
+
+
     return (
         <div className="min-h-screen bg-gray-800 pb-20">
-            <h1 className="text-center text-white text-4xl font-semibold pt-10">Employer Data Collection</h1>
+            <h1 className="text-center text-white text-4xl font-semibold pt-10">
+                Employer Data Collection
+            </h1>
+
             <div className="text-white sm:w-2/4 md:w-2/4 m-auto p-10">
+
+                {/* Form */}
                 <form onSubmit={handleSubmit(onSubmit)}>
+
+                    {/* Name Field */}
                     <div className="relative my-6">
                         <input
                             id="name"
@@ -98,6 +112,7 @@ const Form = () => {
                         )}
                     </div>
 
+                    {/* Email field */}
                     <div className="relative my-6">
                         <input
                             id="email"
@@ -120,6 +135,7 @@ const Form = () => {
                         )}
                     </div>
 
+                    {/* Salary Field */}
                     <div className="relative my-6">
                         <input
                             id="salary"
@@ -142,6 +158,7 @@ const Form = () => {
                         )}
                     </div>
 
+                    {/* Submit button */}
                     <button
                         type="submit"
                         className="btn border-0 inline-flex items-center justify-center w-full h-10 gap-2 px-5 text-sm font-medium tracking-wide text-white transition duration-300 rounded focus-visible:outline-none whitespace-nowrap bg-purple-600 disabled:cursor-not-allowed disabled:border"
@@ -149,10 +166,12 @@ const Form = () => {
                         {editClick ? "Update Data" : "Add An Employer"}
                     </button>
                 </form>
-
             </div>
+
+            {/* Data table */}
             <div className="overflow-x-auto">
                 <table className="sm:w-full md:w-5/6 mx-auto mt-20 text-center">
+                    {/* Table head */}
                     <thead>
                         <tr className="bg-purple-600 text-white">
                             <th className="p-2 md:p-4">Name</th>
@@ -161,6 +180,8 @@ const Form = () => {
                             <th className="p-2 md:p-4">Actions</th>
                         </tr>
                     </thead>
+
+                    {/* Table body */}
                     <tbody>
                         {tableData.map((item, index) => (
                             <tr key={index} className="border-t border-gray-300 bg-gray-100">
@@ -168,6 +189,8 @@ const Form = () => {
                                 <td className="p-2 md:p-4">{item.email}</td>
                                 <td className="p-2 md:p-4">${item.salary}</td>
                                 <td className="p-2 md:p-4 flex justify-center gap-2 md:justify-center">
+
+                                    {/* Edit button */}
                                     <button
                                         onClick={() => handleEdit(index)}
                                         className="bg-blue-500 hover:bg-white hover:text-blue-500 text-white font-bold py-1 px-2 border border-blue-500 mb-2 md:mb-0 md:mr-2"
@@ -175,11 +198,11 @@ const Form = () => {
                                     >
                                         <LuEdit></LuEdit>
                                     </button>
+
+                                    {/* Delete button */}
                                     <button
                                         onClick={() => handleDelete(index)}
-                                        className="text-white
-                                        bg-red-700 hover:bg-white
-                                        text-lg hover:text-red-700 font-bold py-1 px-2 border border-red-500"
+                                        className="text-white bg-red-700 hover:bg-white text-lg hover:text-red-700 font-bold py-1 px-2 border border-red-500"
                                         title="Delete"
                                     >
                                         <LuTrash2></LuTrash2>
@@ -190,7 +213,6 @@ const Form = () => {
                     </tbody>
                 </table>
             </div>
-
         </div>
     );
 };
