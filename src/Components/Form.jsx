@@ -70,9 +70,9 @@ const Form = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-800">
+        <div className="min-h-screen bg-gray-800 pb-20">
             <h1 className="text-center text-white text-4xl font-semibold pt-10">Employer Data Collection</h1>
-            <div className="text-white md:w-2/4 m-auto p-10">
+            <div className="text-white sm:w-2/4 md:w-2/4 m-auto p-10">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="relative my-6">
                         <input
@@ -149,53 +149,32 @@ const Form = () => {
                     </button>
                 </form>
             </div>
-            <div>
-                <table className="w-4/5 mx-auto mt-20 text-center">
-                    <thead className="table-header-group">
-                        <tr className="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative">
-                            <th className="bg-purple-600 p-2 text-white font-bold md:border md:border-grey-500 text-center block md:table-cell">
-                                Name
-                            </th>
-                            <th className="bg-purple-600 p-2 text-white font-bold md:border md:border-grey-500 text-center block md:table-cell">
-                                Email
-                            </th>
-                            <th className="bg-purple-600 p-2 text-white font-bold md:border md:border-grey-500 text-center block md:table-cell">
-                                Salary
-                            </th>
-                            <th className="bg-purple-600 p-2 text-white font-bold md:border md:border-grey-500 text-center block md:table-cell">
-                                Actions
-                            </th>
+            <div className="overflow-x-auto">
+                <table className="sm:w-full md:w-5/6 mx-auto mt-20 text-center">
+                    <thead>
+                        <tr className="bg-purple-600 text-white">
+                            <th className="p-2 md:p-4">Name</th>
+                            <th className="p-2 md:p-4">Email</th>
+                            <th className="p-2 md:p-4">Salary</th>
+                            <th className="p-2 md:p-4">Actions</th>
                         </tr>
                     </thead>
-                    <tbody className="block md:table-row-group">
+                    <tbody>
                         {tableData.map((item, index) => (
-                            <tr
-                                key={index}
-                                className="bg-gray-300 border border-grey-500 md:border-none block text-center md:table-row"
-                            >
-                                <td className="p-2 md:border md:border-grey-500 block md:table-cell text-center">
-                                    <span className="inline-block w-1/3 md:hidden font-bold">Name</span>
-                                    {item.name}
-                                </td>
-                                <td className="p-2 md:border md:border-grey-500 block md:table-cell">
-                                    <span className="inline-block w-1/3 md:hidden font-bold">Email</span>
-                                    {item.email}
-                                </td>
-                                <td className="p-2 md:border md:border-grey-500 block md:table-cell">
-                                    <span className="inline-block w-1/3 md:hidden font-bold">Salary</span>
-                                    {item.salary}
-                                </td>
-                                <td className="md:text-center p-2 md:border md:border-grey-500 block md:table-cell">
-                                    <span className="inline-block w-1/3 md:hidden font-bold">Actions</span>
+                            <tr key={index} className="border-t border-gray-300 bg-gray-100">
+                                <td className="p-2 md:p-4">{item.name}</td>
+                                <td className="p-2 md:p-4">{item.email}</td>
+                                <td className="p-2 md:p-4">{item.salary}</td>
+                                <td className="p-2 md:p-4 flex justify-center gap-2 md:justify-center">
                                     <button
                                         onClick={() => handleEdit(index)}
-                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500"
+                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 mb-2 md:mb-0 md:mr-2"
                                     >
                                         Edit
                                     </button>
                                     <button
                                         onClick={() => handleDelete(index)}
-                                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 ms-3"
+                                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500"
                                     >
                                         Delete
                                     </button>
@@ -205,6 +184,7 @@ const Form = () => {
                     </tbody>
                 </table>
             </div>
+
         </div>
     );
 };
