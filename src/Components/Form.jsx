@@ -171,6 +171,7 @@ const Form = () => {
                                     <button
                                         onClick={() => handleEdit(index)}
                                         className="bg-blue-500 hover:bg-white hover:text-blue-500 text-white font-bold py-1 px-2 border border-blue-500 mb-2 md:mb-0 md:mr-2"
+                                        title="Edit"
                                     >
                                         <LuEdit></LuEdit>
                                     </button>
@@ -179,6 +180,7 @@ const Form = () => {
                                         className="text-white
                                         bg-red-700 hover:bg-white
                                         text-lg hover:text-red-700 font-bold py-1 px-2 border border-red-500"
+                                        title="Delete"
                                     >
                                         <LuTrash2></LuTrash2>
                                     </button>
